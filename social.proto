@@ -1,0 +1,116 @@
+syntax = "proto3";
+
+import "commons.proto";
+
+option java_multiple_files = true;
+option java_package = "com.kotlang.social";
+option java_outer_classname = "SocialInternal";
+
+option go_package = "github.com/Kotlang/socialGo/generated";
+
+package social;
+
+service UserPost {
+    //create new post or reply to a post or add answer to a post
+    //referencePost would be used to post answer or comment on a feed post
+    rpc CreatePost(UserPostRequest) returns (UserPostProto) {}
+    rpc DeletePost(DeletePostRequest) returns (StatusResponse) {}
+    rpc GetFeed(GetFeedRequest) returns (FeedResponse) {}
+    rpc GetMediaUploadUrl(MediaUploadRequest) returns (MediaUploadURL) {}
+    rpc GetPost(GetPostRequest) returns (UserPostProto) {}
+    rpc GetBookmarks(GetBookmarksRequest) returns (FeedResponse) {}
+    rpc GetTags(GetTagsRequest) returns (TagListResponse) {}
+}
+
+message UserPostRequest {
+    //can be markup like html containing images
+    //Question markup in case of QnA_QUESTION
+    //Answer markup in case of QnA_ANSWER
+    //Just markup in case FEED_POST
+    string post = 1;
+    repeated string tags = 2;
+    //in case of QnA_ANSWER use this field to refer to questionId
+    //to reply/comment on a post use original postId as referencePost
+    string referencePost = 3;
+    string title = 4;
+    //for preview etc.
+    repeated string mediaUrls = 5;
+
+    enum PostType {
+        FEED_POST = 0;
+        QnA_QUESTION = 1;
+        QnA_ANSWER = 2;
+    }
+    PostType postType = 6;
+}
+
+message UserPostProto {
+    string postText = 1;
+    repeated string tags = 2;
+    string id = 3;
+    repeated string mediaUrls = 4;
+    int64 createdOn = 5;
+    string referencePost = 6;
+    string userId = 7;
+    // login.UserProfileProto profileInfo = 13;
+    int32 likesCount = 8;
+    int32 repliesCount = 9;
+    int32 shareCount = 10;
+    string title = 11;
+    bool hasFeedUserLiked = 12;
+    repeated UserPostProto answersThread = 15;
+}
+
+message DeletePostRequest {
+    string id = 1;
+}
+
+message FeedFilters {
+    repeated string tags = 1;
+}
+
+message GetFeedRequest{
+    enum PostType {
+        FEED_POST = 0;
+        QnA_QUESTION = 1;
+    }
+    PostType postType = 1;
+    FeedFilters filters = 2;
+
+    //pagination
+    //pageNumber starting from 0
+    int32 pageSize = 3;
+    int32 pageNumber = 4;
+}
+message FeedResponse{
+    repeated UserPostProto posts = 1;
+    int32 pageNumber = 2;
+    int32 pageSize = 3;
+    int32 totalPages = 4;
+}
+
+message MediaUploadRequest {
+    // jpg or png or mp4
+    string mediaExtension = 1;
+}
+
+message GetPostRequest {
+    string postId = 1;
+}
+
+message GetBookmarksRequest {
+    //pagination
+    //pageNumber starting from 0
+    int32 pageSize = 3;
+    int32 pageNumber = 4;
+}
+
+message GetTagsRequest {}
+message TagListResponse {
+    repeated string tag = 1;
+}
+
+message MediaUploadURL {
+    string uploadUrl = 1;
+    string mediaUrl = 2;
+}
