@@ -45,9 +45,9 @@ message UserPostRequest {
 }
 
 message UserPostProto {
-    string postText = 1;
+    string post = 1;
     repeated string tags = 2;
-    string id = 3;
+    string postId = 3;
     repeated string mediaUrls = 4;
     int64 createdOn = 5;
     string referencePost = 6;
