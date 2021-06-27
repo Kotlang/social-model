@@ -11,8 +11,8 @@ option go_package = "github.com/Kotlang/socialGo/generated";
 package social;
 
 service FollowGraph {
-    rpc FollowUser(FollowUserRequest) returns (StatusResponse) {}
-    rpc UnFollowUser(UnFollowUserRequest) returns (StatusResponse) {}
+    rpc FollowUser(FollowUserRequest) returns (SocialStatusResponse) {}
+    rpc UnFollowUser(UnFollowUserRequest) returns (SocialStatusResponse) {}
     rpc GetFollowers(GetFollowersRequest) returns (GetFollowersResponse) {}
 }
 

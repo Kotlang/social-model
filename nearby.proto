@@ -11,7 +11,7 @@ option go_package = "github.com/Kotlang/socialGo/generated";
 package social;
 
 service Nearby {
-    rpc AddLocation(UserGpsLocation) returns (StatusResponse) {}
+    rpc AddLocation(UserGpsLocation) returns (SocialStatusResponse) {}
     rpc getNearby(GetNearbyRequest) returns (GetNearbyResponse) {}
 }
 

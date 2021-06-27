@@ -14,7 +14,7 @@ service UserPost {
     //create new post or reply to a post or add answer to a post
     //referencePost would be used to post answer or comment on a feed post
     rpc CreatePost(UserPostRequest) returns (UserPostProto) {}
-    rpc DeletePost(DeletePostRequest) returns (StatusResponse) {}
+    rpc DeletePost(DeletePostRequest) returns (SocialStatusResponse) {}
     rpc GetFeed(GetFeedRequest) returns (FeedResponse) {}
     rpc GetMediaUploadUrl(MediaUploadRequest) returns (MediaUploadURL) {}
     rpc GetPost(GetPostRequest) returns (UserPostProto) {}
@@ -44,6 +44,12 @@ message UserPostRequest {
     PostType postType = 6;
 }
 
+message AuthorInfo {
+    string photoUrl = 1;
+    string name = 2;
+    string occupation = 3;
+}
+
 message UserPostProto {
     string post = 1;
     repeated string tags = 2;
@@ -52,7 +58,7 @@ message UserPostProto {
     int64 createdOn = 5;
     string referencePost = 6;
     string userId = 7;
-    // login.UserProfileProto profileInfo = 13;
+    AuthorInfo authorInfo = 13;
     int32 likesCount = 8;
     int32 repliesCount = 9;
     int32 shareCount = 10;

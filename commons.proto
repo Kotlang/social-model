@@ -8,6 +8,6 @@ option go_package = "github.com/Kotlang/socialGo/generated";
 
 package social;
 
-message StatusResponse {
+message SocialStatusResponse {
     string status = 1;
 }

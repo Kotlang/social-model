@@ -11,9 +11,9 @@ option go_package = "github.com/Kotlang/socialGo/generated";
 package social;
 
 service PostActions {
-    rpc LikePost(PostIdRequest) returns (StatusResponse) {}
-    rpc UnLikePost(PostIdRequest) returns (StatusResponse) {}
-    rpc Bookmark(PostIdRequest) returns (StatusResponse) {}
+    rpc LikePost(PostIdRequest) returns (SocialStatusResponse) {}
+    rpc UnLikePost(PostIdRequest) returns (SocialStatusResponse) {}
+    rpc Bookmark(PostIdRequest) returns (SocialStatusResponse) {}
 }
 
 message PostIdRequest {
