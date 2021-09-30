@@ -59,9 +59,9 @@ message UserPostProto {
     string referencePost = 6;
     string userId = 7;
     AuthorInfo authorInfo = 13;
-    int32 likesCount = 8;
-    int32 repliesCount = 9;
-    int32 shareCount = 10;
+    int32 numLikes = 8;
+    int32 numReplies = 9;
+    int32 numShares = 10;
     string title = 11;
     bool hasFeedUserLiked = 12;
     repeated UserPostProto answersThread = 15;
