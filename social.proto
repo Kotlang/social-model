@@ -41,6 +41,7 @@ message UserPostRequest {
         QnA_QUESTION = 1;
         QnA_ANSWER = 2;
     }
+    // For answer or comment on a post use postType as QnA_ANSWER.
     PostType postType = 6;
 }
 
