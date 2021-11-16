@@ -20,6 +20,9 @@ service UserPost {
     rpc GetPost(GetPostRequest) returns (UserPostProto) {}
     rpc GetBookmarks(GetBookmarksRequest) returns (FeedResponse) {}
     rpc GetTags(GetTagsRequest) returns (TagListResponse) {}
+
+    // directly takes input of post image or video and uploads the media.
+    rpc UploadPostMedia(stream UploadPostMediaRequest) returns (UploadPostMediaResponse) {}
 }
 
 message UserPostRequest {
@@ -120,4 +123,12 @@ message TagListResponse {
 message MediaUploadURL {
     string uploadUrl = 1;
     string mediaUrl = 2;
+}
+
+message UploadPostMediaRequest {
+    bytes chunkData = 1;
+}
+
+message UploadPostMediaResponse {
+    string uploadPath = 1;
 }
