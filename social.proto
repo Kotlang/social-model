@@ -127,6 +127,7 @@ message MediaUploadURL {
 
 message UploadPostMediaRequest {
     bytes chunkData = 1;
+    string mediaExtension = 2;
 }
 
 message UploadPostMediaResponse {
