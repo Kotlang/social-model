@@ -25,6 +25,13 @@ service UserPost {
     rpc UploadPostMedia(stream UploadPostMediaRequest) returns (UploadPostMediaResponse) {}
 }
 
+message MediaUrl {
+    string url = 1;
+
+    // Ex: image/jpeg, image/png, video/mp4, video/quicktime, audio/mpeg 
+    string mimeType = 2;
+}
+
 message UserPostRequest {
     //can be markup like html containing images
     //Question markup in case of QnA_QUESTION
@@ -36,8 +43,9 @@ message UserPostRequest {
     //to reply/comment on a post use original postId as referencePost
     string referencePost = 3;
     string title = 4;
-    //for preview etc.
-    repeated string mediaUrls = 5;
+
+    // List of media urls uploaded via UploadPostMedia API.
+    repeated MediaUrl mediaUrls = 5;
 
     enum PostType {
         FEED_POST = 0;
@@ -58,7 +66,7 @@ message UserPostProto {
     string post = 1;
     repeated string tags = 2;
     string postId = 3;
-    repeated string mediaUrls = 4;
+    repeated MediaUrl mediaUrls = 4;
     int64 createdOn = 5;
     string referencePost = 6;
     string userId = 7;
