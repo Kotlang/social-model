@@ -64,7 +64,7 @@ message UserPostProto {
     int64 createdOn = 5;
     string referencePost = 6;
     string userId = 7;
-    UserProfile authorInfo = 13;
+    SocialProfile authorInfo = 13;
     int32 numLikes = 8;
     int32 numReplies = 9;
     int32 numShares = 10;

@@ -37,7 +37,7 @@ message GetFollowersRequest {
 }
 
 message GetFollowersResponse {
-    repeated UserProfile followers = 1;
+    repeated SocialProfile followers = 1;
 }
 
 message GetFollowingRequest {
@@ -52,5 +52,5 @@ message GetFollowingRequest {
 }
 
 message GetFollowingResponse {
-    repeated UserProfile following = 1;
+    repeated SocialProfile following = 1;
 }
