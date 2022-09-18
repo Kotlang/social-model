@@ -15,6 +15,7 @@ service FollowGraph {
     rpc UnFollowUser(UnFollowUserRequest) returns (SocialStatusResponse) {}
     rpc GetFollowers(GetFollowersRequest) returns (GetFollowersResponse) {}
     rpc GetFollowing(GetFollowingRequest) returns (GetFollowingResponse) {}
+    rpc IsFollowing(IsFollowingRequest) returns (IsFollowingResponse) {}
 }
 
 message FollowUserRequest {
@@ -53,4 +54,14 @@ message GetFollowingRequest {
 
 message GetFollowingResponse {
     repeated SocialProfile following = 1;
+}
+
+// check if user1 is following user2.
+message IsFollowingRequest {
+    string userId1 = 1;
+    string userId2 = 2;
+}
+
+message IsFollowingResponse {
+    bool isFollowing = 1;
 }
