@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.kotlang.social";
+option java_outer_classname = "ContentMasterInternal";
+
+option go_package = "github.com/Kotlang/socialGo/generated";
+
+package social;
+
+service ContentMaster {
+    rpc GetContentMaster(GetContentMasterRequest) returns (ContentMasterResponse) {}
+}
+
+message GetContentMasterRequest {
+    string language = 1;
+}
+
+message ContentMasterResponse {
+    repeated ContentMasterProto contentMasterList = 1;
+}
+
+message ContentMasterProto {
+    string field = 1;
+    string type = 2;
+    repeated string options = 3;
+}
