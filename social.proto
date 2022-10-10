@@ -54,6 +54,7 @@ message UserPostRequest {
     }
     // For answer or comment on a post use postType as QnA_ANSWER.
     PostType postType = 6;
+    string language = 7;
 }
 
 message UserPostProto {
@@ -118,7 +119,9 @@ message GetBookmarksRequest {
     int32 pageNumber = 4;
 }
 
-message GetTagsRequest {}
+message GetTagsRequest {
+    string language = 1;
+}
 message TagListResponse {
     repeated string tag = 1;
 }
