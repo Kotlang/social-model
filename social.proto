@@ -54,7 +54,6 @@ message UserPostRequest {
     }
     // For answer or comment on a post use postType as QnA_ANSWER.
     PostType postType = 6;
-    string language = 7;
 }
 
 message UserPostProto {
