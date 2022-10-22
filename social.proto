@@ -62,7 +62,7 @@ message UserPostRequest {
     repeated MediaUrl mediaUrls = 5;
     
     // Populated by backend by parsing the webpage urls in post = 1;
-    repeated WebPreview webPreviews = 6;
+    repeated WebPreview webPreviews = 7;
 
     enum PostType {
         FEED_POST = 0;
