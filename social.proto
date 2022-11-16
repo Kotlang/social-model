@@ -78,6 +78,7 @@ message UserPostProto {
     repeated string tags = 2;
     string postId = 3;
     repeated MediaUrl mediaUrls = 4;
+    repeated WebPreview webPreviews = 16;
     int64 createdOn = 5;
     string referencePost = 6;
     string userId = 7;
