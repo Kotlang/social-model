@@ -23,13 +23,27 @@ service UserPost {
 
     // directly takes input of post image or video and uploads the media.
     rpc UploadPostMedia(stream UploadPostMediaRequest) returns (UploadPostMediaResponse) {}
+    
+    // Called from frontend before CreatePost. 
+    // Will be usually called whenever a user pastes a link in post - To show preview as user is creating post.
+    // Also, before createPost - Idempotency.
+    rpc ParsePost(UserPostRequest) returns (UserPostRequest) {}
 }
 
+// Can be used for uploaded images/videos into our storage bucket.
+// Also it can be used for youtube preview, vimeo preview, tik-tok, etc.
 message MediaUrl {
     string url = 1;
 
-    // Ex: image/jpeg, image/png, video/mp4, video/quicktime, audio/mpeg 
+    // Ex: image/jpeg, image/png, video/mp4, video/quicktime, audio/mpeg.
     string mimeType = 2;
+}
+
+message WebPreview {
+    string title = 1;
+    string previewImage = 2;
+    string url = 3;
+    string description = 4;
 }
 
 message UserPostRequest {
@@ -46,6 +60,9 @@ message UserPostRequest {
 
     // List of media urls uploaded via UploadPostMedia API.
     repeated MediaUrl mediaUrls = 5;
+    
+    // Populated by backend by parsing the webpage urls in post = 1;
+    repeated WebPreview webPreviews = 7;
 
     enum PostType {
         FEED_POST = 0;
@@ -61,6 +78,7 @@ message UserPostProto {
     repeated string tags = 2;
     string postId = 3;
     repeated MediaUrl mediaUrls = 4;
+    repeated WebPreview webPreviews = 16;
     int64 createdOn = 5;
     string referencePost = 6;
     string userId = 7;
@@ -118,7 +136,9 @@ message GetBookmarksRequest {
     int32 pageNumber = 4;
 }
 
-message GetTagsRequest {}
+message GetTagsRequest {
+    string language = 1;
+}
 message TagListResponse {
     repeated string tag = 1;
 }
@@ -130,9 +150,6 @@ message MediaUploadURL {
 
 message UploadPostMediaRequest {
     bytes chunkData = 1;
-    
-    // Ex: "png", "jpg" etc.
-    string mediaExtension = 2;
 }
 
 message UploadPostMediaResponse {
