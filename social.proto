@@ -139,8 +139,15 @@ message GetBookmarksRequest {
 message GetTagsRequest {
     string language = 1;
 }
+
+message Tag {
+    string Tag = 1;
+    string TagDescription = 2;
+    int32 NumPosts = 3;
+}
+
 message TagListResponse {
-    repeated string tag = 1;
+    repeated Tag tags = 1;
 }
 
 message MediaUploadURL {
