@@ -136,9 +136,7 @@ message GetBookmarksRequest {
     int32 pageNumber = 4;
 }
 
-message GetTagsRequest {
-    string language = 1;
-}
+message GetTagsRequest {}
 
 message Tag {
     string Tag = 1;
