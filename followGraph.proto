@@ -58,8 +58,8 @@ message GetFollowingResponse {
 
 // check if user1 is following user2.
 message IsFollowingRequest {
-    string userId1 = 1;
-    string userId2 = 2;
+    string follower = 1;
+    string followee = 2;
 }
 
 message IsFollowingResponse {
