@@ -17,6 +17,9 @@ service UserPost {
     rpc DeletePost(DeletePostRequest) returns (SocialStatusResponse) {}
     rpc GetFeed(GetFeedRequest) returns (FeedResponse) {}
     rpc GetMediaUploadUrl(MediaUploadRequest) returns (MediaUploadURL) {}
+
+    // Returns post with it's text, media and top 10 comments/answers. 
+    // For more comments/answers use GetFeed API with referencePost = postId.
     rpc GetPost(GetPostRequest) returns (UserPostProto) {}
     rpc GetBookmarks(GetBookmarksRequest) returns (FeedResponse) {}
     rpc GetTags(GetTagsRequest) returns (TagListResponse) {}
@@ -107,6 +110,8 @@ message GetFeedRequest{
     }
     PostType postType = 1;
     FeedFilters filters = 2;
+
+    string referencePost = 5;
 
     //pagination
     //pageNumber starting from 0
