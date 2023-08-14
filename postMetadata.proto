@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option java_multiple_files = true;
+option java_package = "com.kotlang.social";
+option java_outer_classname = "PostMetadataInternal";
+
+option go_package = "github.com/Kotlang/socialGo/generated";
+
+package social;
+
+message SocialEventMetadata {
+    string name = 1;
+    string type = 2;
+    google.protobuf.Timestamp schedule = 3;
+    string description = 4;
+    int32 numAttendees = 5;
+    int32 numSlots = 6;
+    string location = 7;
+    int64 durationMins = 8;
+    string onlineLink = 9;
+}

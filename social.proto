@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "commons.proto";
+import "postMetadata.proto";
 
 option java_multiple_files = true;
 option java_package = "com.kotlang.social";
@@ -49,6 +50,13 @@ message WebPreview {
     string description = 4;
 }
 
+enum PostType {
+    FEED_POST = 0;
+    QnA_QUESTION = 1;
+    QnA_ANSWER = 2;
+    SOCIAL_EVENT = 3;
+}
+
 message UserPostRequest {
     //can be markup like html containing images
     //Question markup in case of QnA_QUESTION
@@ -67,13 +75,11 @@ message UserPostRequest {
     // Populated by backend by parsing the webpage urls in post = 1;
     repeated WebPreview webPreviews = 7;
 
-    enum PostType {
-        FEED_POST = 0;
-        QnA_QUESTION = 1;
-        QnA_ANSWER = 2;
-    }
     // For answer or comment on a post use postType as QnA_ANSWER.
     PostType postType = 6;
+
+    // Additional structured data.
+    SocialEventMetadata socialEventMetadata = 8;
 }
 
 message UserPostProto {
@@ -92,6 +98,9 @@ message UserPostProto {
     string title = 11;
     bool hasFeedUserLiked = 12;
     repeated UserPostProto answersThread = 15;
+
+    // Additional structured data.
+    SocialEventMetadata socialEventMetadata = 17;
 }
 
 message DeletePostRequest {
@@ -101,14 +110,10 @@ message DeletePostRequest {
 message FeedFilters {
     string tag = 1;
     string userId = 2;
+    PostType postType = 3;
 }
 
 message GetFeedRequest{
-    enum PostType {
-        FEED_POST = 0;
-        QnA_QUESTION = 1;
-    }
-    PostType postType = 1;
     FeedFilters filters = 2;
 
     string referencePost = 5;
