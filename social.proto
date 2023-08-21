@@ -107,10 +107,17 @@ message DeletePostRequest {
     string id = 1;
 }
 
+enum EventStatus {
+    PAST = 0;
+    ONGOING = 1;
+    FUTURE = 2;
+}
+
 message FeedFilters {
     string tag = 1;
     string userId = 2;
     PostType postType = 3;
+    EventStatus eventStatus = 4;
 }
 
 message GetFeedRequest{
