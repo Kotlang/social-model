@@ -13,9 +13,14 @@ message Location {
     double long = 2;
 }
 
+enum EventType {
+    ONLINE = 0;
+    OFFLINE = 1;
+}
+
 message SocialEventMetadata {
     string name = 1;
-    string type = 2;
+    EventType type = 2;
     int64 startAt = 3;
     string description = 4;
     int32 numAttendees = 5;
