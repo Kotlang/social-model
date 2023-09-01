@@ -17,6 +17,7 @@ service UserPost {
     rpc CreatePost(UserPostRequest) returns (UserPostProto) {}
     rpc DeletePost(DeletePostRequest) returns (SocialStatusResponse) {}
     rpc GetFeed(GetFeedRequest) returns (FeedResponse) {}
+    rpc GetEventFeed(GetEventFeedRequest) returns (FeedResponse) {}
     rpc GetMediaUploadUrl(MediaUploadRequest) returns (MediaUploadURL) {}
 
     // Returns post with it's text, media and top 10 comments/answers. 
@@ -107,34 +108,51 @@ message DeletePostRequest {
     string id = 1;
 }
 
-enum EventStatus {
-    PAST = 0;
-    ONGOING = 1;
-    FUTURE = 2;
-}
-
 message FeedFilters {
     string tag = 1;
     string userId = 2;
     PostType postType = 3;
-    EventStatus eventStatus = 4;
 }
 
 message GetFeedRequest{
-    FeedFilters filters = 2;
+    FeedFilters filters = 1;
 
-    string referencePost = 5;
+    string referencePost = 2;
 
     //pagination
     //pageNumber starting from 0
     int32 pageSize = 3;
     int32 pageNumber = 4;
 }
+
 message FeedResponse{
     repeated UserPostProto posts = 1;
     int32 pageNumber = 2;
     int32 pageSize = 3;
     int32 totalPages = 4;
+}
+
+// Events API
+enum EventStatus {
+    PAST = 0;
+    ONGOING = 1;
+    FUTURE = 2;
+}
+
+message EventFeedFilters {
+    EventStatus eventStatus = 1;
+    string subscriberId = 2;
+}
+
+message GetEventFeedRequest {
+    EventFeedFilters filters = 1;
+
+    string referencePost = 2;
+
+    //pagination
+    //pageNumber starting from 0
+    int32 pageSize = 3;
+    int32 pageNumber = 4;
 }
 
 message MediaUploadRequest {
