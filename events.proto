@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+import "commons.proto";
+import "postMetadata.proto";
+
+option java_multiple_files = true;
+option java_package = "com.kotlang.social";
+option java_outer_classname = "EventsInternal";
+
+option go_package = "github.com/Kotlang/socialGo/generated";
+
+package social;
+
+service Events {
+    rpc CreateEvent(CreateEventRequest) returns (EventProto) {}
+    rpc DeleteEvent(DeleteEventRequest) returns (SocialStatusResponse) {}
+    rpc GetEvent(GetEventRequest) returns (EventProto) {}
+    rpc GetEventFeed(GetEventFeedRequest) returns (EventFeedResponse) {}
+    
+}
+message CreateEventRequest {
+    string title = 1;
+    string post = 2;
+    EventType type = 3;
+    int64 startAt = 4;
+    int64 endAt = 5;
+    repeated MediaUrl mediaUrls = 6;
+    repeated WebPreview webPreviews = 7;
+    string description = 8;
+    int32 numAttendees = 9;
+    int32 numSlots = 10;
+    Location location = 11;
+    string onlineLink = 12;
+    repeated string tags = 13;
+    string referenceEvent = 14;
+    string userId = 15;
+
+    
+}
+message EventProto {
+    string eventId = 1;
+    string title = 2;
+    int64 createdOn = 3;
+    int32 numLikes = 4;
+    int32 numReplies = 5;
+    EventType type = 6;
+    string onlineLink = 7;
+    int64 startAt = 8;
+    string description = 9;
+    int32 numAttendees = 10;
+    int32 numSlots = 11;
+    Location location = 12;
+    int64 endAt = 13;
+    repeated string tags = 14;
+    string referenceEvent = 15;
+    repeated MediaUrl mediaUrls = 16;
+    repeated WebPreview webPreviews = 17;
+    string post = 18;
+    bool hasFeedUserLiked = 19;
+    SocialProfile authorInfo = 20;
+    string userId = 21;
+    repeated EventProto answersThread = 22;
+
+}
+
+message DeleteEventRequest {
+    string eventId = 1;
+}
+message GetEventRequest {
+    string eventId = 1;
+}
+enum EventStatus {
+    PAST = 0;
+    ONGOING = 1;
+    FUTURE = 2;
+}
+
+message EventFeedFilters {
+    EventStatus eventStatus = 1;
+    string subscriberId = 2;
+}
+
+message GetEventFeedRequest {
+    EventFeedFilters filters = 1;
+
+    string referencePost = 2;
+
+    //pagination
+    //pageNumber starting from 0
+    int32 pageSize = 3;
+    int32 pageNumber = 4;
+}
+
+message EventFeedResponse{
+    repeated EventProto events = 1;
+    int32 pageNumber = 2;
+    int32 pageSize = 3;
+    int32 totalPages = 4;
+}

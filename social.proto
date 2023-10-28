@@ -2,6 +2,7 @@ syntax = "proto3";
 
 import "commons.proto";
 import "postMetadata.proto";
+import "events.proto";
 
 option java_multiple_files = true;
 option java_package = "com.kotlang.social";
@@ -33,22 +34,6 @@ service UserPost {
     // Will be usually called whenever a user pastes a link in post - To show preview as user is creating post.
     // Also, before createPost - Idempotency.
     rpc ParsePost(UserPostRequest) returns (UserPostRequest) {}
-}
-
-// Can be used for uploaded images/videos into our storage bucket.
-// Also it can be used for youtube preview, vimeo preview, tik-tok, etc.
-message MediaUrl {
-    string url = 1;
-
-    // Ex: image/jpeg, image/png, video/mp4, video/quicktime, audio/mpeg.
-    string mimeType = 2;
-}
-
-message WebPreview {
-    string title = 1;
-    string previewImage = 2;
-    string url = 3;
-    string description = 4;
 }
 
 enum PostType {
@@ -132,28 +117,6 @@ message FeedResponse{
     int32 totalPages = 4;
 }
 
-// Events API
-enum EventStatus {
-    PAST = 0;
-    ONGOING = 1;
-    FUTURE = 2;
-}
-
-message EventFeedFilters {
-    EventStatus eventStatus = 1;
-    string subscriberId = 2;
-}
-
-message GetEventFeedRequest {
-    EventFeedFilters filters = 1;
-
-    string referencePost = 2;
-
-    //pagination
-    //pageNumber starting from 0
-    int32 pageSize = 3;
-    int32 pageNumber = 4;
-}
 
 message MediaUploadRequest {
     // jpg or png or mp4
