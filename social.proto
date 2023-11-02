@@ -78,9 +78,10 @@ message UserPostRequest {
 
     // For answer or comment on a post use postType as QnA_ANSWER.
     PostType postType = 6;
+    repeated string contentType = 8;
 
     // Additional structured data.
-    SocialEventMetadata socialEventMetadata = 8;
+    SocialEventMetadata socialEventMetadata = 9;
 }
 
 message UserPostProto {
@@ -99,9 +100,9 @@ message UserPostProto {
     string title = 11;
     bool hasFeedUserLiked = 12;
     repeated UserPostProto answersThread = 15;
-
+    repeated string contentType = 17;
     // Additional structured data.
-    SocialEventMetadata socialEventMetadata = 17;
+    SocialEventMetadata socialEventMetadata = 18;
 }
 
 message DeletePostRequest {
@@ -111,7 +112,12 @@ message DeletePostRequest {
 message FeedFilters {
     string tag = 1;
     string userId = 2;
-    PostType postType = 3;
+    string createdBy = 3;
+    PostType postType = 4;
+    repeated string contentType = 5;
+    repeated string type = 6;
+    bool fetchUserCommentedPosts = 7;
+    bool fetchUserLikedPosts = 8;
 }
 
 message GetFeedRequest{
