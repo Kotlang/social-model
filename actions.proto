@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+import "commons.proto";
+
+option java_multiple_files = true;
+option java_package = "com.kotlang.social";
+option java_outer_classname = "PostActionsInternal";
+
+option go_package = "github.com/Kotlang/socialGo/generated";
+
+package social;
+
+service actions {
+    rpc React(ReactRequest) returns (SocialStatusResponse) {}
+    rpc UnReact(ReactRequest) returns (SocialStatusResponse) {}
+    rpc Bookmark(IdRequest) returns (SocialStatusResponse) {}
+    rpc Comment(CommentRequest) returns (CommentProto);
+    rpc DeleteComment(IdRequest) returns (SocialStatusResponse);
+    rpc FetchComments (CommentFetchRequest) returns (CommentsFetchResponse);
+    rpc FetchCommentById (IdRequest) returns (CommentProto);
+}
+
+//enlist types of entities that can be reacted/commented on
+enum EntityTypes {
+    POST = 0;
+    EVENT = 1;
+    COMMENT = 2;
+}
+message ReactRequest {
+    string entityId = 1;
+    string reaction = 2;
+    EntityTypes reactionOn = 3;
+}
+
+message IdRequest {
+    string id = 1;
+}
+
+message CommentRequest {
+    string parentId = 1;
+    string content = 2;
+    EntityTypes commentOn = 3;
+    repeated MediaUrl mediaUrls = 4;
+    repeated WebPreview webPreviews = 5;
+}
+
+message CommentProto {
+    string commentId = 1;
+    string content = 2;
+    string userId = 3;
+    int64 createdOn = 4;
+    map<string, int64> numReacts = 5;
+    int32 numComments = 6;
+    repeated string userReactions = 7;
+    repeated MediaUrl mediaUrls = 8;
+    repeated WebPreview webPreviews = 9;
+    string parentId = 10;
+    SocialProfile authorInfo = 11;
+}
+message CommentFetchRequest {
+    string parentId = 1;
+    int32 pageNumber = 2;
+    int32 pageSize = 3;
+}
+message CommentsFetchResponse {
+    repeated CommentProto comments = 1;
+    int32 pageNumber = 2;
+    int32 pageSize = 3;
+
+}
