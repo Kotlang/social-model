@@ -34,3 +34,7 @@ message WebPreview {
     string url = 3;
     string description = 4;
 }
+message Location {
+    double lat = 1;
+    double long = 2;
+}

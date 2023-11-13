@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 import "commons.proto";
-import "postMetadata.proto";
 
 option java_multiple_files = true;
 option java_package = "com.kotlang.social";
@@ -13,11 +12,16 @@ package social;
 
 service Events {
     rpc CreateEvent(CreateEventRequest) returns (EventProto) {}
-    rpc DeleteEvent(DeleteEventRequest) returns (SocialStatusResponse) {}
-    rpc GetEvent(GetEventRequest) returns (EventProto) {}
+    rpc DeleteEvent(EventIdRequest) returns (SocialStatusResponse) {}
+    rpc GetEvent(EventIdRequest) returns (EventProto) {}
     rpc GetEventFeed(GetEventFeedRequest) returns (EventFeedResponse) {}
-    
+    rpc SubscribeEvent(EventIdRequest) returns (SocialStatusResponse) {}
 }
+enum EventType {
+    ONLINE = 0;
+    OFFLINE = 1;
+}
+
 message CreateEventRequest {
     string title = 1;
     string post = 2;
@@ -32,17 +36,13 @@ message CreateEventRequest {
     Location location = 11;
     string onlineLink = 12;
     repeated string tags = 13;
-    string referenceEvent = 14;
-    string userId = 15;
-
-    
 }
 message EventProto {
     string eventId = 1;
     string title = 2;
     int64 createdOn = 3;
-    int32 numLikes = 4;
-    int32 numReplies = 5;
+    map<string, int64> numReacts = 4;
+    int32 numComments = 5;
     EventType type = 6;
     string onlineLink = 7;
     int64 startAt = 8;
@@ -52,21 +52,13 @@ message EventProto {
     Location location = 12;
     int64 endAt = 13;
     repeated string tags = 14;
-    string referenceEvent = 15;
     repeated MediaUrl mediaUrls = 16;
     repeated WebPreview webPreviews = 17;
     string post = 18;
-    bool hasFeedUserLiked = 19;
-    SocialProfile authorInfo = 20;
-    string userId = 21;
-    repeated EventProto answersThread = 22;
-
+    repeated string FeedUserReactions = 19;
 }
 
-message DeleteEventRequest {
-    string eventId = 1;
-}
-message GetEventRequest {
+message EventIdRequest {
     string eventId = 1;
 }
 enum EventStatus {
@@ -77,14 +69,11 @@ enum EventStatus {
 
 message EventFeedFilters {
     EventStatus eventStatus = 1;
-    string subscriberId = 2;
+    bool getSubscribedEvents = 2;
 }
 
 message GetEventFeedRequest {
     EventFeedFilters filters = 1;
-
-    string referencePost = 2;
-
     //pagination
     //pageNumber starting from 0
     int32 pageSize = 3;
