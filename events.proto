@@ -24,7 +24,6 @@ enum EventType {
 
 message CreateEventRequest {
     string title = 1;
-    string post = 2;
     EventType type = 3;
     int64 startAt = 4;
     int64 endAt = 5;
@@ -54,7 +53,6 @@ message EventProto {
     repeated string tags = 14;
     repeated MediaUrl mediaUrls = 16;
     repeated WebPreview webPreviews = 17;
-    string post = 18;
     repeated string FeedUserReactions = 19;
 }
 
