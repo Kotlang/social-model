@@ -18,3 +18,23 @@ message SocialProfile {
     string occupation = 3;
     string userId = 4;
 }
+
+// Can be used for uploaded images/videos into our storage bucket.
+// Also it can be used for youtube preview, vimeo preview, tik-tok, etc.
+message MediaUrl {
+    string url = 1;
+
+    // Ex: image/jpeg, image/png, video/mp4, video/quicktime, audio/mpeg.
+    string mimeType = 2;
+}
+
+message WebPreview {
+    string title = 1;
+    string previewImage = 2;
+    string url = 3;
+    string description = 4;
+}
+message Location {
+    double lat = 1;
+    double long = 2;
+}

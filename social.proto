@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 import "commons.proto";
-import "postMetadata.proto";
 
 option java_multiple_files = true;
 option java_package = "com.kotlang.social";
@@ -17,7 +16,6 @@ service UserPost {
     rpc CreatePost(UserPostRequest) returns (UserPostProto) {}
     rpc DeletePost(DeletePostRequest) returns (SocialStatusResponse) {}
     rpc GetFeed(GetFeedRequest) returns (FeedResponse) {}
-    rpc GetEventFeed(GetEventFeedRequest) returns (FeedResponse) {}
     rpc GetMediaUploadUrl(MediaUploadRequest) returns (MediaUploadURL) {}
 
     // Returns post with it's text, media and top 10 comments/answers. 
@@ -35,27 +33,10 @@ service UserPost {
     rpc ParsePost(UserPostRequest) returns (UserPostRequest) {}
 }
 
-// Can be used for uploaded images/videos into our storage bucket.
-// Also it can be used for youtube preview, vimeo preview, tik-tok, etc.
-message MediaUrl {
-    string url = 1;
-
-    // Ex: image/jpeg, image/png, video/mp4, video/quicktime, audio/mpeg.
-    string mimeType = 2;
-}
-
-message WebPreview {
-    string title = 1;
-    string previewImage = 2;
-    string url = 3;
-    string description = 4;
-}
-
 enum PostType {
     FEED_POST = 0;
     QnA_QUESTION = 1;
     QnA_ANSWER = 2;
-    SOCIAL_EVENT = 3;
 }
 
 message UserPostRequest {
@@ -67,7 +48,7 @@ message UserPostRequest {
     repeated string tags = 2;
     //in case of QnA_ANSWER use this field to refer to questionId
     //to reply/comment on a post use original postId as referencePost
-    string referencePost = 3;
+    //string referencePost = 3;
     string title = 4;
 
     // List of media urls uploaded via UploadPostMedia API.
@@ -80,8 +61,6 @@ message UserPostRequest {
     PostType postType = 6;
     repeated string contentType = 8;
 
-    // Additional structured data.
-    SocialEventMetadata socialEventMetadata = 9;
 }
 
 message UserPostProto {
@@ -91,18 +70,14 @@ message UserPostProto {
     repeated MediaUrl mediaUrls = 4;
     repeated WebPreview webPreviews = 16;
     int64 createdOn = 5;
-    string referencePost = 6;
     string userId = 7;
     SocialProfile authorInfo = 13;
-    int32 numLikes = 8;
+    map<string, int64> numReacts = 8;
     int32 numReplies = 9;
     int32 numShares = 10;
     string title = 11;
-    bool hasFeedUserLiked = 12;
-    repeated UserPostProto answersThread = 15;
+    repeated string feedUserReactions = 12;
     repeated string contentType = 17;
-    // Additional structured data.
-    SocialEventMetadata socialEventMetadata = 18;
 }
 
 message DeletePostRequest {
@@ -138,28 +113,6 @@ message FeedResponse{
     int32 totalPages = 4;
 }
 
-// Events API
-enum EventStatus {
-    PAST = 0;
-    ONGOING = 1;
-    FUTURE = 2;
-}
-
-message EventFeedFilters {
-    EventStatus eventStatus = 1;
-    string subscriberId = 2;
-}
-
-message GetEventFeedRequest {
-    EventFeedFilters filters = 1;
-
-    string referencePost = 2;
-
-    //pagination
-    //pageNumber starting from 0
-    int32 pageSize = 3;
-    int32 pageNumber = 4;
-}
 
 message MediaUploadRequest {
     // jpg or png or mp4
