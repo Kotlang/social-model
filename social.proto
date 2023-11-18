@@ -92,7 +92,7 @@ message FeedFilters {
     repeated string contentType = 5;
     repeated string type = 6;
     bool fetchUserCommentedPosts = 7;
-    bool fetchUserLikedPosts = 8;
+    bool fetchUserReactedPosts = 8;
 }
 
 message GetFeedRequest{
