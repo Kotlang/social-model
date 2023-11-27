@@ -59,6 +59,8 @@ message UserPostRequest {
 
     // For answer or comment on a post use postType as QnA_ANSWER.
     PostType postType = 6;
+    repeated string contentType = 8;
+
 }
 
 message UserPostProto {
@@ -75,6 +77,7 @@ message UserPostProto {
     int32 numShares = 10;
     string title = 11;
     repeated string feedUserReactions = 12;
+    repeated string contentType = 17;
 }
 
 message DeletePostRequest {
@@ -84,7 +87,12 @@ message DeletePostRequest {
 message FeedFilters {
     string tag = 1;
     string userId = 2;
-    PostType postType = 3;
+    string createdBy = 3;
+    PostType postType = 4;
+    repeated string contentType = 5;
+    repeated string type = 6;
+    bool fetchUserCommentedPosts = 7;
+    bool fetchUserReactedPosts = 8;
 }
 
 message GetFeedRequest{
