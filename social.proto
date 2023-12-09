@@ -12,14 +12,12 @@ package social;
 
 service UserPost {
     //create new post or reply to a post or add answer to a post
-    //referencePost would be used to post answer or comment on a feed post
     rpc CreatePost(UserPostRequest) returns (UserPostProto) {}
     rpc DeletePost(DeletePostRequest) returns (SocialStatusResponse) {}
     rpc GetFeed(GetFeedRequest) returns (FeedResponse) {}
     rpc GetMediaUploadUrl(MediaUploadRequest) returns (MediaUploadURL) {}
 
-    // Returns post with it's text, media and top 10 comments/answers. 
-    // For more comments/answers use GetFeed API with referencePost = postId.
+    // Returns post with it's text, media, webPreviews, tags, etc.
     rpc GetPost(GetPostRequest) returns (UserPostProto) {}
     rpc GetBookmarks(GetBookmarksRequest) returns (FeedResponse) {}
     rpc GetTags(GetTagsRequest) returns (TagListResponse) {}
@@ -47,8 +45,6 @@ message UserPostRequest {
     string post = 1;
     repeated string tags = 2;
     //in case of QnA_ANSWER use this field to refer to questionId
-    //to reply/comment on a post use original postId as referencePost
-    //string referencePost = 3;
     string title = 4;
 
     // List of media urls uploaded via UploadPostMedia API.
@@ -57,7 +53,7 @@ message UserPostRequest {
     // Populated by backend by parsing the webpage urls in post = 1;
     repeated WebPreview webPreviews = 7;
 
-    // For answer or comment on a post use postType as QnA_ANSWER.
+    // For answer on a post use postType as QnA_ANSWER.
     PostType postType = 6;
     repeated string contentType = 8;
 
