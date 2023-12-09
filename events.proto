@@ -57,6 +57,7 @@ message EventProto {
     repeated MediaUrl mediaUrls = 16;
     repeated WebPreview webPreviews = 17;
     repeated string FeedUserReactions = 19;
+    bool hasFeedUserSubscribed = 20;
 }
 
 message EditEventRequest {
