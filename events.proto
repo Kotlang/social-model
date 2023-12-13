@@ -17,6 +17,7 @@ service Events {
     rpc GetEventFeed(GetEventFeedRequest) returns (EventFeedResponse) {}
     rpc SubscribeEvent(EventIdRequest) returns (SocialStatusResponse) {}
     rpc EditEvent(EditEventRequest) returns (SocialStatusResponse) {}
+    rpc UnsubscribeEvent(EventIdRequest) returns (SocialStatusResponse) {}
 }
 
 enum EventType {
