@@ -18,6 +18,7 @@ service Events {
     rpc SubscribeEvent(EventIdRequest) returns (SocialStatusResponse) {}
     rpc EditEvent(EditEventRequest) returns (SocialStatusResponse) {}
     rpc UnsubscribeEvent(EventIdRequest) returns (SocialStatusResponse) {}
+    rpc GetEventSubscribers(EventIdRequest) returns (UserIdList) {}
 }
 
 enum EventType {
@@ -106,4 +107,8 @@ message EventFeedResponse{
     int32 pageNumber = 2;
     int32 pageSize = 3;
     int32 totalPages = 4;
+}
+
+message UserIdList {
+    repeated string userId = 1;
 }
