@@ -39,6 +39,8 @@ message CreateEventRequest {
     Location location = 11;
     string onlineLink = 12;
     repeated string tags = 13;
+    string authorName = 14;
+    string authorId = 15;
 }
 
 message EventProto {
@@ -60,6 +62,7 @@ message EventProto {
     repeated WebPreview webPreviews = 17;
     repeated string FeedUserReactions = 19;
     bool hasFeedUserSubscribed = 20;
+    SocialProfile authorInfo = 21;
 }
 
 message EditEventRequest {
