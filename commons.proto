@@ -38,3 +38,34 @@ message Location {
     double lat = 1;
     double long = 2;
 }
+
+message UserPostProto {
+    string post = 1;
+    repeated string tags = 2;
+    string postId = 3;
+    repeated MediaUrl mediaUrls = 4;
+    repeated WebPreview webPreviews = 16;
+    int64 createdOn = 5;
+    string userId = 7;
+    SocialProfile authorInfo = 13;
+    map<string, int64> numReacts = 8;
+    int32 numReplies = 9;
+    int32 numShares = 10;
+    string title = 11;
+    repeated string feedUserReactions = 12;
+    repeated string contentType = 17;
+}
+
+message CommentProto {
+    string commentId = 1;
+    string content = 2;
+    string userId = 3;
+    int64 createdOn = 4;
+    map<string, int64> numReacts = 5;
+    int32 numComments = 6;
+    repeated string userReactions = 7;
+    repeated MediaUrl mediaUrls = 8;
+    repeated WebPreview webPreviews = 9;
+    string parentId = 10;
+    SocialProfile authorInfo = 11;
+}

@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "commons.proto";
+
 option java_multiple_files = true;
 option java_package = "com.kotlang.social";
 option java_outer_classname = "SocialStatsInternal";
@@ -21,6 +23,6 @@ message GetStatsResponse {
     int32 followersCount = 1;
     int32 followingCount = 2;
     int32 postsCount = 3;
-    // int32 likesCount = 4;
-    // int32 commentsCount = 5;
+    int32 likesCount = 4;
+    int32 commentsCount = 5;
 }

@@ -26,6 +26,7 @@ enum EntityTypes {
     EVENT = 1;
     COMMENT = 2;
 }
+
 message ReactRequest {
     string entityId = 1;
     string reaction = 2;
@@ -44,24 +45,15 @@ message CommentRequest {
     repeated WebPreview webPreviews = 5;
 }
 
-message CommentProto {
-    string commentId = 1;
-    string content = 2;
-    string userId = 3;
-    int64 createdOn = 4;
-    map<string, int64> numReacts = 5;
-    int32 numComments = 6;
-    repeated string userReactions = 7;
-    repeated MediaUrl mediaUrls = 8;
-    repeated WebPreview webPreviews = 9;
-    string parentId = 10;
-    SocialProfile authorInfo = 11;
-}
 message CommentFetchRequest {
     string parentId = 1;
-    int32 pageNumber = 2;
-    int32 pageSize = 3;
+    
+    //optianl, IF need to fetch comments for specific user
+    string userId = 2; 
+    int32 pageNumber = 3;
+    int32 pageSize = 4;
 }
+
 message CommentsFetchResponse {
     repeated CommentProto comments = 1;
     int32 pageNumber = 2;

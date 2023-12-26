@@ -59,23 +59,6 @@ message UserPostRequest {
 
 }
 
-message UserPostProto {
-    string post = 1;
-    repeated string tags = 2;
-    string postId = 3;
-    repeated MediaUrl mediaUrls = 4;
-    repeated WebPreview webPreviews = 16;
-    int64 createdOn = 5;
-    string userId = 7;
-    SocialProfile authorInfo = 13;
-    map<string, int64> numReacts = 8;
-    int32 numReplies = 9;
-    int32 numShares = 10;
-    string title = 11;
-    repeated string feedUserReactions = 12;
-    repeated string contentType = 17;
-}
-
 message DeletePostRequest {
     string id = 1;
 }
