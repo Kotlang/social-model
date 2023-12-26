@@ -21,6 +21,7 @@ message GetStatsResponse {
     int32 followersCount = 1;
     int32 followingCount = 2;
     int32 postsCount = 3;
-    // int32 likesCount = 4;
-    // int32 commentsCount = 5;
+    int32 reactCount = 4;
+    int32 commentsCount = 5;
+    int32 eventsCount = 6;
 }

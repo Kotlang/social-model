@@ -57,10 +57,14 @@ message CommentProto {
     string parentId = 10;
     SocialProfile authorInfo = 11;
 }
+
 message CommentFetchRequest {
     string parentId = 1;
-    int32 pageNumber = 2;
-    int32 pageSize = 3;
+
+    //optianl, IF want to fetch comments created by specific user
+    string userId = 2;
+    int32 pageNumber = 3;
+    int32 pageSize = 4;
 }
 message CommentsFetchResponse {
     repeated CommentProto comments = 1;
